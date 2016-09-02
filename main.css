@@ -1,0 +1,194 @@
+@import "compass/css3";
+@import url(//db.onlinewebfonts.com/c/a6ffc5d72a96b65159e710ea6d258ba4?family=Menlo);
+
+@font-face {font-family: "Menlo";
+    src: url("//db.onlinewebfonts.com/t/a6ffc5d72a96b65159e710ea6d258ba4.eot");
+    src: url("//db.onlinewebfonts.com/t/a6ffc5d72a96b65159e710ea6d258ba4.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/a6ffc5d72a96b65159e710ea6d258ba4.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/a6ffc5d72a96b65159e710ea6d258ba4.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/a6ffc5d72a96b65159e710ea6d258ba4.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/a6ffc5d72a96b65159e710ea6d258ba4.svg#Menlo") format("svg");
+}
+@font-face{
+  font-family: "aaargh"
+  src: url(../fonts/Aaargh.ttf);
+}
+@font-face{
+  font-family: "giza"
+  src: url(../fonts/Giza.otf);
+}
+
+/* ----------------------- GENERAL ----------------------- */
+.title{
+  background: url(../img/flat_background.png)50% 10%/ 100% auto; 
+  min-width: 868px;
+}
+
+.agenda{
+  height: 384px;
+  border-bottom:solid thin #F0F0F0;
+  box-shadow: 0px 3px 9px #F0F0F0;
+}
+
+body {
+  background: url(../img/full_sea_.png) 50% 100%/100% auto;
+  padding:0;
+  margin:0;
+}
+
+.todo-wrapper {
+  background: #ffffff;
+  width: 100%;
+}
+
+h2 {
+  font-size: 2.5em;
+  font-family: giza;
+  padding: 40px;
+  margin: 0;
+  color: #000;
+  text-align: center;
+ }
+
+.tab {
+  font-family: aaargh;
+  color: #ffffff;
+  padding:8px 0 0 0;
+}
+.tab p{
+  padding-top:2px;
+}
+
+.column {
+  margin:0;
+  padding:0;
+  color:#000;
+  background:#fff;
+}
+
+/* ----------------------- TASK LIST TAB ----------------------- */
+
+#taskList{
+  background: #55aaf1;
+  
+  position:relative;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  /* transforming with a value other than auto to the grandparent element 
+  allows the use of fixed positioning to place child elements 
+  (clear-btn/add-input) relative to grandparent
+  */
+}
+
+ul {
+  padding: 0px;
+  margin: 0px;
+}
+
+ul li {
+  font-family: aaargh;
+  font-size: 1em;
+  text-align: left;
+  text-indent: 44px;
+  padding: 30px;
+  background: #ffffff; /* Old browsers */
+  list-style-type: none;
+  border-bottom:solid thin #55aaf1;
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+li input[type="checkbox"] {
+  width: 40px;
+  position:absolute;
+  right:20px;
+}
+
+.done-true {
+  color: #ddd;
+}
+
+.clear-btn, .add-input {
+  width: 100%;
+  height: 50px;
+  border: none;
+  padding: 0;
+  font-size: 1em;
+}
+.add-input {
+  float: left;
+  background: #ffffff;
+  color:#000;
+  font-family: aaargh;
+  text-align: center;
+}
+
+.clear-btn {
+  background: #d84e4e;
+  color: #ffffff;
+  font-family: Menlo;
+  text-transform: uppercase;
+}
+ 
+/* -----------------------        STEPS TAB       ------------------- */
+
+#steps{
+  background: #3183c6;
+}
+
+.enter-step, .edit-step{
+  width: 100%;
+  height: 20px;
+  float: left;
+  border: none;
+  padding: 30px 0;
+  font-size: 1em;
+  font-family: aaargh;
+  text-align: center;
+}
+
+.edit-step {
+  width:80%;
+  padding:0px;
+  margin:-7px;
+  position: relative;
+  float: right;
+  text-align: left;
+  color:#3183c6;
+  top:-12px;
+
+}
+ol {
+  padding: 0px;
+  margin: 0px;
+}
+
+ol li {
+  padding:6px;
+  margin:0px;
+  border-bottom: dotted thin #55aaf1;
+  list-style-position: inside;
+  text-indent: 22px;
+}
+
+/* -----------------------        TIMER TAB       ------------------- */
+
+#timer{
+  background: #81cce4;  
+}
+.start-finish{
+  color:#81cce4;
+  padding: 30px;
+  text-indent:44px;
+}
+
+
+
+
+
+
+
+
