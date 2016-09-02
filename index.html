@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>ANGULAR APP</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="//db.onlinewebfonts.com/c/a6ffc5d72a96b65159e710ea6d258ba4?family=Menlo" rel="stylesheet" type="text/css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <!-- old
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+   --> 
+    <script src="js/jquery3_1_0.min.js"></script>
+  </head>
+
+  <body ng-app="agendaMod">
+
+    <div class="todo-wrapper" ng-controller="TodoCtrl">
+
+    <section class = "title">
+      <h2>You've got {{getTotalTodos()}} things to do</h2>
+    </section>
+
+      <section class = "agenda">
+      <div class = "tab col-sm-4" id = "taskList"> <center><p> TASK LIST </p></center> 
+        <div class = "column" id = "taskCol">
+          <ul>
+            <li id = {{'task-'+$index}} ng-click = "selectTask()" ng-repeat="todo in todos">
+              <span class="done-{{todo.done}}">{{todo.text}}</span>
+              <input type="checkbox" ng-model="todo.done"/>            
+            </li>
+          </ul>
+
+          <form ng-submit = "addSomething()" id = "addTask">
+            <input class="add-input" placeholder="I need to ..." type="text" ng-model="formTodoText"/>
+          </form>
+
+          <button class="clear-btn" ng-click="clearCompleted()">Clear completed</button>
+        </div>
+      </div>
+
+      <div class = "tab col-sm-4" id = "steps"> <center><p> STEPS </p></center> 
+        <div class = "column" id = "stepsCol">
+          <ol>  
+            <li ng-repeat="step in allStepsArray"> 
+              <span ng-hide="editing" ng-click="editing = true">{{step.text}}</span>
+
+              <form ng-show="editing" ng-submit = "editing = false">
+                <input class="edit-step" type="text" ng-model="step.text"/>
+              </form>
+            </li>
+          </ol> 
+
+          <form ng-submit = "addSomething()" id ="addStep">
+            <input class="enter-step" placeholder="Break it down!" type="text" ng-model="formStepText"/>
+          </form>          
+        </div>
+      </div>
+
+      <div class = "tab col-sm-4" id = "timer"> <center> <p> TIMER </p></center> 
+        <div class = "column" id = "timerCol">
+         <!-- insert EST directive here -->
+        <start-finish class="start-finish"></start-finish>
+         </div>
+      </div>
+  </section>
+
+  </div>
+    <script type="text/ng-template" id= "start-finish.html" >
+    <div>START {{est.startHour}} : {{est.startMinute}} {{est.startPeriod}}</div> 
+    <div>  END {{est.endHour}} : {{est.endMinute}} {{est.endPeriod}} </div>
+    </script>
+
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+  </body>
+  
+</html>
+
+  
+</html>
