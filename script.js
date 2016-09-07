@@ -1,5 +1,6 @@
 angular.module('agendaMod', [])
   .controller('TodoCtrl', ['$scope', '$timeout', function($scope, $timeout) {
+    $scope.today 
 
     $scope.todos = [
       {text: 'Select a task', done:false},         
@@ -14,15 +15,38 @@ angular.module('agendaMod', [])
     $scope.starting = {
       hour: "10",
       minute: "45",
-      period: "AM",
+      period: "PM",
     }
     $scope.end = {
       hour: "11",
       minute: "00",
       period: "AM",
     }
-    $scope.counter = 60;
+    $scope.secondCounter = 60;
+    $scope.minuteCounter = 60;
+    $scope.hourCounter = 0;
     $scope.bool = true
+    $scope.startTime = 0
+    $scope.endTime = 0
+
+    $scope.getCurrentDate = function(){
+      var current = new Date();
+      var dd = current.getDate();
+      var mm = current.getMonth()+1; //January is 0!
+      var yyyy = current.getFullYear();
+
+      if(dd<10) {
+          dd='0'+dd
+      } 
+
+      if(mm<10) {
+          mm='0'+mm
+      } 
+
+      current = mm+'/'+dd+'/'+yyyy;
+      $scope.today = current
+
+    }
     $scope.getTotalTodos = function () {
       return $scope.todos.length;
     };
@@ -91,22 +115,6 @@ angular.module('agendaMod', [])
       console.log("active task has steps: " + $scope.allStepsArray) 
       */
     };
-
-    $scope.onTimeout = function(){
-        $scope.counter--;
-        if ($scope.counter > 0) {
-            mytimeout = $timeout($scope.onTimeout,1000);
-        }
-        else{
-          console.log("timer done")
-        }
-    }
-    $scope.mytimeout = $timeout($scope.onTimeout,1000);
-    
-    $scope.reset= function(){
-        $scope.counter = 60;
-        mytimeout = $timeout($scope.onTimeout,1000);
-    }
     $scope.switch = function($event){
       $scope.bool = !$scope.bool
       if (event.currentTarget.id == "start" && $scope.bool === true){
@@ -121,16 +129,60 @@ angular.module('agendaMod', [])
       else if (event.currentTarget.id == "end" && $scope.bool === false){
         $scope.end.period = "PM"      
       }
-    }
+    };
     $scope.convertToMilitary = function(){
-      if ($scope.starting.period = "PM"){
-        console.log("clicked")
-
+      $scope.hourCounter = 0 
+      $scope.secondCounter = 60
+      $scope.minuteCounter = 0
+      console.log(typeof $scope.starting.hour)
+      if ( $scope.starting.period == "PM"){
+        console.log( "added to counter: ", parseInt($scope.starting.hour) + 12 )
+        $scope.hourCounter +=(parseInt($scope.starting.hour) + 12 ) 
       }
-      else if ($scope.starting.period = "AM"){
-
+      else if ($scope.starting.hour == 12 && $scope.starting.period == "AM"){
+        $scope.hourCounter +=(parseInt($scope.starting.hour) + 12 ) 
       }
+      else if ($scope.starting.period == "AM"){
+        $scope.hourCounter +=parseInt($scope.starting.hour) 
+      }
+
+      if ($scope.end.period == "PM"){
+        $scope.hourCounter -=(parseInt($scope.end.hour) + 12 )
+      }
+      else if ($scope.end.hour == 12 && $scope.end.period == "AM"){
+        console.log( "subtracted from counter: ", parseInt($scope.end.hour) + 12 )
+        $scope.hourCounter -=(parseInt($scope.end.hour) + 12 ) 
+      }
+      else if ($scope.end.period == "AM") {
+        console.log( "subtracted from counter: ", parseInt($scope.end.hour))
+        $scope.hourCounter -=parseInt($scope.end.hour) 
+      }
+      $scope.minuteCounter = ($scope.starting.minute - $scope.end.minute)
+      $scope.minuteCounter = Math.abs($scope.minuteCounter)
+      $scope.hourCounter = Math.abs($scope.hourCounter)
+    };
+    $scope.onTimeout = function(){
+        if ($scope.secondCounter > 0) {
+            secondtimeout = $timeout($scope.onTimeout,1000);
+            $scope.secondCounter--;
+            console.log("seconds", $scope.secondCounter)
+        }
+        if ($scope.minuteCounter > 0 && $scope.secondCounter == 0){
+            minutetimeout = $timeout($scope.onTimeout,60000);
+            $scope.minuteCounter--;
+            $scope.secondCounter = 60
+            console.log("minute passed")
+        }
+        if ($scope.hourCounter > 0 && $scope.minuteCounter == 0 ){
+            hourtimeout = $timeout($scope.onTimeout,3600000);
+            $scope.hourCounter--;
+            $scope.minuteCounter = 60
+            console.log("hour passed")
+        }       
     }
+    $scope.secondtimeout = $timeout($scope.onTimeout,1000);
+    $scope.minutetimeout = $timeout($scope.onTimeout, 60000)
+    $scope.hourtimeout = $timeout($scope.onTimeout, 3600000)
  }])
   .directive('startFinish', function() {
     return {
