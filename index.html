@@ -2,6 +2,7 @@
 
 <html lang="en">
   <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANGULAR APP</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -23,7 +24,7 @@
     </section>
 
       <section class = "agenda">
-      <div class = "tab col-sm-4" id = "taskList"> <center><p> TASK LIST </p></center> 
+      <div class = "tab col-sm-4" id = "taskListSection"> <center><p> TASK LIST </p></center> 
         <div class = "column" id = "taskCol">
           <ul>
             <li id = {{'task-'+$index}} ng-click = "selectTask()" ng-repeat="todo in todos">
@@ -40,7 +41,7 @@
         </div>
       </div>
 
-      <div class = "tab col-sm-4" id = "steps"> <center><p> STEPS </p></center> 
+      <div class = "tab col-sm-4" id = "stepsSection"> <center><p> STEPS </p></center> 
         <div class = "column" id = "stepsCol">
           <ol>  
             <li ng-repeat="step in allStepsArray"> 
@@ -58,18 +59,47 @@
         </div>
       </div>
 
-      <div class = "tab col-sm-4" id = "timer"> <center> <p> TIMER </p></center> 
-        <div class = "column" id = "timerCol">
+      <div class = "tab col-sm-4" id = "timerSection"> <center> <p> TIMER </p></center> 
+        <div class = "start-end column" id = "timerCol">
          <!-- insert EST directive here -->
-        <start-finish class="start-finish"></start-finish>
-         </div>
-      </div>
-  </section>
+        <div class = "time-container">
 
-  </div>
+        <div class = "col-sm-12">
+          <div class= "timer-wrap">
+            <span class="shrink"> start </span><start-finish class="clock" time="starting"></start-finish>
+          </div>
+            <div class = "ampm " id="start" ng-click ="switch()"> 
+              {{starting.period}}
+          </div>
+        </div>
+
+      <div class = "col-sm-12">
+        <div class = "timer-wrap">
+          <span class="shrink">end</span> <start-finish class="clock" time="end"></start-finish>
+        </div>
+          <div class = "ampm" id="end" ng-click ="switch()"> 
+            {{end.period}}
+        </div>
+      </div>
+          <div class = "counter col-sm-12">{{counter}}</div>
+
+        </div> <!-- timer-container -->
+        </div> <!-- start-end  -->
+      </div> <!-- timer column -->
+  </section>
+  </div> <!-- todo-wrapper -->
+
     <script type="text/ng-template" id= "start-finish.html" >
-    <div>START {{est.startHour}} : {{est.startMinute}} {{est.startPeriod}}</div> 
-    <div>  END {{est.endHour}} : {{est.endMinute}} {{est.endPeriod}} </div>
+        <span ng-hide="editing" ng-click="editing = true">{{timeInfo.hour}} : </span>
+
+        <form ng-show="editing" ng-submit = "editing = false">
+          <input class="edit-time" id="hour" type="text" ng-model="timeInfo.hour"/>
+        </form>
+        <span ng-hide="editing" ng-click="editing = true">{{timeInfo.minute}} </span>
+
+        <form ng-show="editing" ng-submit = "editing = false">
+          <input class="edit-time" id="minute" type="text" ng-model="timeInfo.minute"/>
+        </form>
     </script>
 
     <script type="text/javascript" src="js/script.js"></script>
