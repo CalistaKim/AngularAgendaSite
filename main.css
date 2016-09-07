@@ -1,3 +1,19 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @CalistaKim
+ Unwatch 1
+  Star 0
+ Fork 0 CalistaKim/AngularAgendaSite
+ Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs  Settings
+Branch: master Find file Copy pathAngularAgendaSite/main.css
+922725a  3 hours ago
+@CalistaKim CalistaKim Update main.css
+1 contributor
+RawBlameHistory     266 lines (228 sloc)  4.63 KB
 @import "compass/css3";
 @import url(//db.onlinewebfonts.com/c/a6ffc5d72a96b65159e710ea6d258ba4?family=Menlo);
 
@@ -186,6 +202,7 @@ ol li {
   background:#ffffff;
 }
 .timer-wrap{
+  float:left;
   max-height: 21px;
 
 }
@@ -203,11 +220,14 @@ ol li {
 }
 
 .clock{
-  padding-left:5px;
+  padding-left:15px;
 }
 
 .ampm{
-  left:150px;
+  float:left;
+  position: absolute;
+  top:3px;
+  left:160px;
   padding:0;
   margin:0;
   font-size:0.9em;
@@ -263,3 +283,5 @@ ol li {
 
 
 
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
