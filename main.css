@@ -68,7 +68,7 @@ h2 {
 
 /* ----------------------- TASK LIST TAB ----------------------- */
 
-#taskList{
+#taskListSection{
   background: #55aaf1;
   
   position:relative;
@@ -135,7 +135,7 @@ li input[type="checkbox"] {
  
 /* -----------------------        STEPS TAB       ------------------- */
 
-#steps{
+#stepsSection{
   background: #3183c6;
 }
 
@@ -176,18 +176,89 @@ ol li {
 
 /* -----------------------        TIMER TAB       ------------------- */
 
-#timer{
-  background: #81cce4;  
+#timerSection{
+  background: #81cce4; 
 }
-.start-finish{
+
+#timerCol{
+  padding:25px;
+  min-height: 300px;
+  background:#ffffff;
+}
+.timer-wrap{
+  max-height: 21px;
+
+}
+.start-end{
   color:#81cce4;
-  padding: 30px;
-  text-indent:44px;
+  font-size: 1.1em;
+}
+.shrink{
+  font-size:0.9em;
+  padding-left:30px;
+}
+.time-container{
+  position:relative;
+  width:100%;
+}
+
+.clock{
+  padding-left:5px;
+}
+
+.ampm{
+  left:150px;
+  padding:0;
+  margin:0;
+  font-size:0.9em;
+}
+.edit-time {
+  width:22px;
+  padding:0;
+  margin:0;
+  position: absolute;
+  float: left;
+  text-align: center;
+  border:none;
+  color:#3183c6;
+}
+#hour{
+  top:0px;
+  left:90px;
+}
+#minute{
+  top:0px;
+  left:115px;
+}
+
+.counter{
+  padding:20px;
+  text-align: center;
+  font-size:1.3em;
+}
+/* -----------------------        RESIZING      ------------------- */
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
 }
 
 
+@media only screen and (min-width: 768px) {
+    /* For desktop: when the screen is larger than 768px*/
 
-
+    .col-sm-1 {width: 8.33%;}
+    .col-sm-2 {width: 16.66%;}
+    .col-sm-3 {width: 25%;}
+    .col-sm-4 {width: 33.33%;}
+    .col-sm-5 {width: 41.66%;}
+    .col-sm-6 {width: 50%;}
+    .col-sm-7 {width: 58.33%;}
+    .col-sm-8 {width: 66.66%;}
+    .col-sm-9 {width: 75%;}
+    .col-sm-10 {width: 83.33%;}
+    .col-sm-11 {width: 91.66%;}
+    .col-sm-12 {width: 100%;}
+}
 
 
 
