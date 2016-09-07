@@ -1,7 +1,5 @@
-(function(angular) {
-  'use strict';
 angular.module('agendaMod', [])
-  .controller('TodoCtrl', ['$scope', function($scope) {
+  .controller('TodoCtrl', ['$scope', '$timeout', function($scope, $timeout) {
 
     $scope.todos = [
       {text: 'Select a task', done:false},         
@@ -13,16 +11,18 @@ angular.module('agendaMod', [])
       {text: 'Step one'},         
     ];
 
-    $scope.est = {
-      startHour: "10",
-      startMinute: "45",
-      startPeriod: "AM",
-      
-      endHour: "11",
-      endMinute: "00",
-      endPeriod:"PM",
+    $scope.starting = {
+      hour: "10",
+      minute: "45",
+      period: "AM",
     }
-    
+    $scope.end = {
+      hour: "11",
+      minute: "00",
+      period: "AM",
+    }
+    $scope.counter = 60;
+    $scope.bool = true
     $scope.getTotalTodos = function () {
       return $scope.todos.length;
     };
@@ -91,14 +91,58 @@ angular.module('agendaMod', [])
       console.log("active task has steps: " + $scope.allStepsArray) 
       */
     };
+
+    $scope.onTimeout = function(){
+        $scope.counter--;
+        if ($scope.counter > 0) {
+            mytimeout = $timeout($scope.onTimeout,1000);
+        }
+        else{
+          console.log("timer done")
+        }
+    }
+    $scope.mytimeout = $timeout($scope.onTimeout,1000);
+    
+    $scope.reset= function(){
+        $scope.counter = 60;
+        mytimeout = $timeout($scope.onTimeout,1000);
+    }
+    $scope.switch = function($event){
+      $scope.bool = !$scope.bool
+      if (event.currentTarget.id == "start" && $scope.bool === true){
+        $scope.starting.period = "AM"
+      }
+      else if (event.currentTarget.id == "start" && $scope.bool === false){
+        $scope.starting.period = "PM"
+      }
+      else if (event.currentTarget.id == "end" && $scope.bool === true){
+        $scope.end.period = "AM"     
+      }
+      else if (event.currentTarget.id == "end" && $scope.bool === false){
+        $scope.end.period = "PM"      
+      }
+    }
+    $scope.convertToMilitary = function(){
+      if ($scope.starting.period = "PM"){
+        console.log("clicked")
+
+      }
+      else if ($scope.starting.period = "AM"){
+
+      }
+    }
  }])
   .directive('startFinish', function() {
     return {
+      restrict: 'E',
+      scope: {
+        timeInfo: '=time'
+      },
       templateUrl: 'start-finish.html'
     };
-  });
+  })
 
-})(window.angular);
+
 
 
 
