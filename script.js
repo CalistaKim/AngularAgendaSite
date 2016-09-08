@@ -22,8 +22,8 @@ angular.module('agendaMod', [])
       minute: "00",
       period: "AM",
     }
-    $scope.secondCounter = 60;
-    $scope.minuteCounter = 60;
+    $scope.secondCounter = 0;
+    $scope.minuteCounter = 0;
     $scope.hourCounter = 0;
     $scope.bool = true
     $scope.startTime = 0
@@ -130,7 +130,7 @@ angular.module('agendaMod', [])
         $scope.end.period = "PM"      
       }
     };
-    $scope.convertToMilitary = function(){
+    $scope.startTimer = function(){
       $scope.hourCounter = 0 
       $scope.secondCounter = 60
       $scope.minuteCounter = 0
@@ -161,28 +161,7 @@ angular.module('agendaMod', [])
       $scope.minuteCounter = Math.abs($scope.minuteCounter)
       $scope.hourCounter = Math.abs($scope.hourCounter)
     };
-    $scope.onTimeout = function(){
-        if ($scope.secondCounter > 0) {
-            secondtimeout = $timeout($scope.onTimeout,1000);
-            $scope.secondCounter--;
-            console.log("seconds", $scope.secondCounter)
-        }
-        if ($scope.minuteCounter > 0 && $scope.secondCounter == 0){
-            minutetimeout = $timeout($scope.onTimeout,60000);
-            $scope.minuteCounter--;
-            $scope.secondCounter = 60
-            console.log("minute passed")
-        }
-        if ($scope.hourCounter > 0 && $scope.minuteCounter == 0 ){
-            hourtimeout = $timeout($scope.onTimeout,3600000);
-            $scope.hourCounter--;
-            $scope.minuteCounter = 60
-            console.log("hour passed")
-        }       
-    }
-    $scope.secondtimeout = $timeout($scope.onTimeout,1000);
-    $scope.minutetimeout = $timeout($scope.onTimeout, 60000)
-    $scope.hourtimeout = $timeout($scope.onTimeout, 3600000)
+
  }])
   .directive('startFinish', function() {
     return {
@@ -190,9 +169,38 @@ angular.module('agendaMod', [])
       scope: {
         timeInfo: '=time'
       },
-      templateUrl: 'start-finish.html'
-    };
-  })
+      templateUrl: 'start-finish.html',
+    }
+  }).directive('countdown', [
+        '$interval',
+        function ($interval) {
+            return {
+                restrict: 'A',
+                scope: { date: '@'},
+                link: function (scope) {
+                    
+                    $interval(function () {
+
+                        if (scope.$parent.secondCounter > 0) {
+                            scope.$parent.secondCounter--;
+                            //console.log("seconds", $scope.secondCounter)
+                        }
+                        if (scope.$parent.minuteCounter > 0 && scope.$parent.secondCounter == 0){
+                            scope.$parent.minuteCounter--;
+                            scope.$parent.secondCounter = 60
+                            console.log("minute passed")
+                        }
+                        if (scope.$parent.hourCounter > 0 && scope.$parent.minuteCounter == 0 ){
+                            scope.$parent.hourCounter--;
+                            scope.$parent.minuteCounter = 60
+                            console.log("hour passed")
+                        } 
+                    }, 1000);
+                
+                }
+            };
+        }
+    ]);
 
 
 
